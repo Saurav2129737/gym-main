@@ -1,29 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Facebook, Instagram, Twitter, Menu, X, Phone, Mail } from 'lucide-react';
-import { Link } from 'react-router-dom';
-
-// const Header = () => {
-//   return (
-//     <div className="fixed top-0 left-0 right-0 bg-gray-900 text-white z-50 hidden md:block">
-//       <div className="container mx-auto px-4">
-//         <div className="flex justify-between items-center py-2 text-sm">
-//           <div className="flex items-center space-x-4">
-//             <span className="flex items-center"><Phone size={16} className="mr-1" /> (123) 456-7890</span>
-//             <span className="flex items-center"><Mail size={16} className="mr-1" /> info@fitnesspro.com</span>
-//           </div>
-//           <div className="flex items-center space-x-4">
-//             <a href="#" aria-label="Facebook" className="hover:text-blue-400 transition"><Facebook size={16} /></a>
-//             <a href="#" aria-label="Instagram" className="hover:text-blue-400 transition"><Instagram size={16} /></a>
-//             <a href="#" aria-label="Twitter" className="hover:text-blue-400 transition"><Twitter size={16} /></a>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState('/');
+  const location = useLocation();
+
+  useEffect(() => {
+    setActiveLink(location.pathname);
+  }, [location]);
 
   const menuItems = [
     { to: "/", label: "Home" },
@@ -33,7 +19,6 @@ const Navbar = () => {
     { to: "/bmi-calculator", label: "BMI Calculator" },
     { to: "/contact", label: "Contact" },
     { to: "/auth", label: "Login/Signup" },
-    { to: "/admin", label: "Admin" },  // Add this line
   ];
 
   return (
@@ -42,13 +27,15 @@ const Navbar = () => {
         <div className="flex justify-between items-center py-4">
           <a href="/" className="text-2xl font-bold">GroundZero</a>
           <div className="hidden md:flex space-x-4">
-            <Link to="/" className="hover:text-blue-400 transition">Home</Link>
-            <Link to="/gallery" className="hover:text-blue-400 transition">Gallery</Link>
-            <Link to="./workouts" className="hover:text-blue-400 transition">Workouts</Link>
-            <Link to="/pricing" className="hover:text-blue-400 transition">Pricing</Link>
-            <Link to="/bmi-calculator" className="hover:text-blue-400 transition">BMI Calculator</Link>
-            <Link to="/auth" className="hover:text-blue-400 transition">Register</Link>
-            <Link to="/contact" className="hover:text-blue-400 transition">Contact</Link>
+            {menuItems.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className={`transition ${activeLink === item.to ? 'text-blue-400' : 'hover:text-blue-400'}`}
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
           <button 
             className="md:hidden focus:outline-none" 
@@ -62,27 +49,21 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 flex flex-col items-center">
-            <Link to="/" className="hover:text-blue-400 transition">Home</Link>
-            <Link to="/gallery" className="hover:text-blue-400 transition">Gallery</Link>
-            <Link to="./workouts" className="hover:text-blue-400 transition">Workouts</Link>
-            <Link to="/pricing" className="hover:text-blue-400 transition">Pricing</Link>
-            <Link to="/bmi-calculator" className="hover:text-blue-400 transition">BMI Calculator</Link>
-            <Link to="/auth" className="hover:text-blue-400 transition">Register</Link>
-            <Link to="/contact" className="hover:text-blue-400 transition">Contact</Link>
+            {menuItems.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className={`transition ${activeLink === item.to ? 'text-blue-400' : 'hover:text-blue-400'}`}
+                onClick={() => setIsOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
         </div>
       )}
     </nav>
   );
 };
-
-// const Navigation = () => {
-//   return (
-//     <>
-//       <Header />
-//       <Navbar />
-//     </>
-//   );
-// };
 
 export default Navbar;
