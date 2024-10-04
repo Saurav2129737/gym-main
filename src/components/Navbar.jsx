@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Facebook, Instagram, Twitter, Menu, X, Phone, Mail } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <div className="fixed top-0 left-0 right-0 bg-gray-900 text-white z-50">
+    <div className="fixed top-0 left-0 right-0 bg-gray-900 text-white z-50 hidden md:block">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-2 text-sm">
           <div className="flex items-center space-x-4">
@@ -25,15 +26,17 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-8 left-0 right-0 bg-black bg-opacity-80 text-white z-40">
+    <nav className="fixed md:top-8 left-0 right-0 bg-black bg-opacity-80 text-white z-40">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <a href="/" className="text-2xl font-bold">FitnessPro</a>
           <div className="hidden md:flex space-x-4">
-            <a href="#" className="hover:text-blue-400 transition">Home</a>
-            <a href="#" className="hover:text-blue-400 transition">Classes</a>
-            <a href="#" className="hover:text-blue-400 transition">Trainers</a>
-            <a href="#" className="hover:text-blue-400 transition">Contact</a>
+            <Link to="/" className="hover:text-blue-400 transition">Home</Link>
+            <Link to="/gallery" className="hover:text-blue-400 transition">Gallery</Link>
+            <Link to="./workouts" className="hover:text-blue-400 transition">Workouts</Link>
+            <Link to="/pricing" className="hover:text-blue-400 transition">Pricing</Link>
+            <Link to="/bmi-calculator" className="hover:text-blue-400 transition">BMI Calculator</Link>
+            <Link to="/contact" className="hover:text-blue-400 transition">Contact</Link>
           </div>
           <button 
             className="md:hidden focus:outline-none" 
@@ -46,11 +49,13 @@ const Navbar = () => {
       </div>
       {isOpen && (
         <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700 transition">Home</a>
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700 transition">Classes</a>
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700 transition">Trainers</a>
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700 transition">Contact</a>
+          <div className="px-2 pt-2 pb-3 space-y-1 flex flex-col items-center">
+            <Link to="/" className="hover:text-blue-400 transition">Home</Link>
+            <Link to="/gallery" className="hover:text-blue-400 transition">Gallery</Link>
+            <Link to="./workouts" className="hover:text-blue-400 transition">Workouts</Link>
+            <Link to="/pricing" className="hover:text-blue-400 transition">Pricing</Link>
+            <Link to="/bmi-calculator" className="hover:text-blue-400 transition">BMI Calculator</Link>
+            <Link to="/contact" className="hover:text-blue-400 transition">Contact</Link>
           </div>
         </div>
       )}
