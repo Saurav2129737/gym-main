@@ -47,7 +47,7 @@ const Gallery = () => {
   };
 
   return (
-    <section className=" bg-gradient-to-br from-gray-900 via-gray-800 to-blackpx-4 py-24">
+    <section className=" bg-gradient-to-br from-gray-900 via-gray-800 to-black px-4 py-24">
       <motion.h1
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
